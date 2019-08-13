@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardImg, CardText, CardTitle, Media, Button, Breadcrumb, BreadcrumbItem, Modal, Row, Label, Col, Form, ModalBody, ModalHeader } from 'reactstrap';
+import { Card, CardBody, CardImg, CardText, CardTitle, Media, Button, Breadcrumb, BreadcrumbItem, Modal, Row, Label, Col, ModalBody, ModalHeader } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, Errors, LocalForm } from 'react-redux-form';
 
-const required = (val) => val && val.length;
+
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 class CommentForm extends Component {
@@ -16,10 +16,8 @@ class CommentForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
         this.toggleModal();
-
+this.props.addComment(this.props.dishId,values.rating,values.author,values.comment);
     }
     toggleModal() {
         this.setState({ isModalOpen: !this.state.isModalOpen })
@@ -76,7 +74,7 @@ class CommentForm extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Col md={{ offset: 2, size: 10 }}>
+                                <Col md={{  size: 10 }}>
                                     <Button type="submit" color="primary">Submit</Button>
                                 </Col>
                             </Row>
@@ -107,7 +105,7 @@ function RenderDish({ dish }) {
         return (<div></div>);
     }
 }
-function RenderComments({ comments }) {
+function RenderComments({ comments,addComment,dishId }) {
     console.log(comments);
     var Comments = [];
     if (comments != null && typeof (comments) !== 'undefined') {
@@ -127,7 +125,7 @@ function RenderComments({ comments }) {
                 <h4>Comments</h4>
                 <ul className="list-unstyled" >
                     {Comments}
-                    <CommentForm />
+                    <CommentForm  dishId={dishId} addComment={addComment}/>
                 </ul>
             </div>
         );
@@ -155,7 +153,9 @@ const Dishdetail = (props) => {
                     <RenderDish dish={props.dish} />
                 </div>
                 <div className="col-12 col-md-5 m1">
-                    <RenderComments comments={props.comments} />
+                    <RenderComments comments={props.comments}
+                    addComment={props.addComment}
+                    dishId={props.dish.id} />
                 </div>
             </div>
 
