@@ -3,6 +3,7 @@ import { Card, CardBody, CardImg, CardText, CardTitle, Media, Button, Breadcrumb
 import { Link } from 'react-router-dom';
 import { Control, Errors, LocalForm } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
@@ -91,7 +92,7 @@ function RenderDish({ dish }) {
     if (dish != null && typeof (dish) !== 'undefined') {
         return (
             <Card>
-                <CardImg top src={dish.image} alt={dish.name} />
+                <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                 <CardBody>
                     <CardTitle>{dish.name}</CardTitle>
                     <CardText >{dish.description}</CardText>
@@ -103,7 +104,6 @@ function RenderDish({ dish }) {
     }
 }
 function RenderComments({ comments, addComment, dishId }) {
-    console.log(comments);
     var Comments = [];
     if (comments != null && typeof (comments) !== 'undefined') {
         comments.map((comment) => {
