@@ -19,7 +19,6 @@ function RenderMenuItem({ dish, onClick }) {
     );
 }
 const Menu = (props) => {
-    console.log(props.dishes.isLoading);
     if (props.dishes.isLoading) {
         return (
             <div className="container">
