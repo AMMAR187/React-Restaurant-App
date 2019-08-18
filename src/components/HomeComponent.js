@@ -8,7 +8,7 @@ function RenderCard({ item, isLoading, errMess }) {
             <h4>{errMess}</h4>
         );
     }
-    else if (item) {
+    else if (item)
         return (
             <Card>
                 <CardImg src={baseUrl + item.image} alt={item.name} />
@@ -19,15 +19,17 @@ function RenderCard({ item, isLoading, errMess }) {
                 </CardBody>
             </Card>
         );
+    else {
+        return <Loading />
     }
-    else
-        return (
-            <Loading />
-        );
+
+
 
 }
 
 function Home(props) {
+    console.log(props.promoLoading);
+
     return (
         <div className="container">
             <div className="row text-left">
